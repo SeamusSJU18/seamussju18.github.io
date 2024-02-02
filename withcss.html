@@ -5,7 +5,22 @@
         <title>My profile page</title>
     </head>
     <style>
-        body {
+        @media (max-width: 640 px) {
+            body {
+                background-color:green;
+                color:yellow
+            }
+            h1 {
+                background-color:white;
+                color:blue
+            }
+            table {
+                background-color:yellow;
+                color:purple;
+            }
+        }
+        @media (min-width: 641 px) {
+            body {
             background-color:yellow
         }
         h1 {
@@ -16,14 +31,9 @@
             border: 1 px solid;
             background-color:black;
             color:red
+        }  
         }
-        @media (max-width: 700 px) {
-            body {
-                background-color:green;
-                color:yellow
-            }
-        }
-        </style>
+    </style>
 
     <body>
         
