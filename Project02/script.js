@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const taskForm = document.getElementById("task");
-    const pendingTaskList = document.getElementById("pending-task-list");
-    const completedTaskList = document.getElementById("completed-task-list");
+    const pendingTaskList = document.getElementById("pending");
+    const completedTaskList = document.getElementById("completed");
     const tasks = [];
 
     // Function to add a new task
