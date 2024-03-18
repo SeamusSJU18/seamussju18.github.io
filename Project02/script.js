@@ -1,14 +1,14 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const taskForm = document.getElementById("task-form");
-    const pendingTaskList = document.getElementById("task");
-    const completedTaskList = document.getElementById("task");
+    const taskForm = document.getElementById("task");
+    const pendingTaskList = document.getElementById("pending-task-list");
+    const completedTaskList = document.getElementById("completed-task-list");
     const tasks = [];
 
     // Function to add a new task
     function addTask(title, priority, status) {
         const task = { title, priority, status };
         tasks.push(task);
-        addTaskToDOM(task);
+        renderTasks();
     }
 
     // Function to remove a task
