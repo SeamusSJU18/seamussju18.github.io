@@ -1,7 +1,7 @@
-
 document.addEventListener("DOMContentLoaded", function() {
-    const taskForm = document.getElementById("task");
-    const taskList = document.getElementById("task-list");
+    const taskForm = document.getElementById("task-form");
+    const pendingTaskList = document.getElementById("task");
+    const completedTaskList = document.getElementById("task");
     const tasks = [];
 
     // Function to add a new task
@@ -25,21 +25,30 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Function to render tasks
     function renderTasks() {
-        taskList.innerHTML = "";
+        pendingTaskList.innerHTML = "";
+        completedTaskList.innerHTML = "";
         tasks.forEach((task, index) => {
             const li = document.createElement("li");
             li.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
-            li.innerHTML = `
-                ${task.title} - ${task.priority}
-                <span>
-                    <button class="btn btn-success btn-sm mr-2" onclick="markAsComplete(${index})">Mark as Complete</button>
-                    <button class="btn btn-danger btn-sm" onclick="removeTask(${index})">Remove</button>
-                </span>
-            `;
+            
             if (task.status === "completed") {
-                li.style.textDecoration = "line-through";
+                li.innerHTML = `
+                    <del>${task.title} - ${task.priority}</del>
+                    <span>
+                        <button class="btn btn-danger btn-sm" onclick="removeTask(${index})">Remove</button>
+                    </span>
+                `;
+                completedTaskList.appendChild(li);
+            } else {
+                li.innerHTML = `
+                    ${task.title} - ${task.priority}
+                    <span>
+                        <button class="btn btn-success btn-sm mr-2" onclick="markAsComplete(${index})">Mark as Complete</button>
+                        <button class="btn btn-danger btn-sm" onclick="removeTask(${index})">Remove</button>
+                    </span>
+                `;
+                pendingTaskList.appendChild(li);
             }
-            taskList.appendChild(li);
         });
     }
 
