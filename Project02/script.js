@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
       completedList.appendChild(li);
     } else {
       li.innerHTML = `${title} - ${priority}`;
-      pendingList.appendChild(li);
+      pendingList.appendChild(li); // Add to pending list by default
     }
   }
 });
