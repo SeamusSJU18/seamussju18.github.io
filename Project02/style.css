@@ -12,3 +12,8 @@ body {
 .fill {
     background-color: yellow
 }
+
+.choose {
+    background-color:red;
+    color: purple
+}
