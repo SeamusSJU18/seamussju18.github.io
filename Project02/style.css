@@ -18,7 +18,7 @@ body {
     color: purple
 }
 
-.btn btn-primary {
+.btn.btn-primary {
     background-color:white !important
     color:black !important;
 }
