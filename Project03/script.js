@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Please enter your name.');
             }
         });
+        return false;
     }
 
     async function fetchQuiz(baseUrl) {
