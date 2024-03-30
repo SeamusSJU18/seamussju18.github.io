@@ -40,6 +40,7 @@ async function showQuizSelectionView() {
             startQuiz();
         });
     });
+    return false;
 }
 
 async function startQuiz() {
