@@ -32,7 +32,7 @@ function showEnterNameView() {
 }
 async function showQuizSelectionView() {
     const quizData = await fetchQuizData();
-    const quizSelectionTemplate = Handlebars.compile(document.getElementById('quiz_selection').innerHTML);
+    const quizSelectionTemplate = Handlebars.compile(document.getElementById('quiz-selection-template').innerHTML);
     document.getElementById('app_widget').innerHTML = quizSelectionTemplate({ quizzes: quizData });
     document.querySelectorAll('.start-quiz-btn').forEach((btn, index) => {
         btn.addEventListener('click', () => {
