@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
 
     fetchQuizData();
@@ -34,7 +33,8 @@ async function showEnterNameView() {
 
         return false;
     });
-    
+} // This curly brace was missing
+
 async function startQuiz(selectedQuizIndex) {
     const quizData = await fetchQuizData();
     const selectedQuiz = quizData.Quiz[selectedQuizIndex];
@@ -43,6 +43,7 @@ async function startQuiz(selectedQuizIndex) {
     document.getElementById('submitAnswersBtn').addEventListener('click', submitAnswers);
     startTime = Date.now();
 }
+
 function submitAnswers() {
     const userAnswers = [];
     const quiz = quizData[currentQuizIndex];
