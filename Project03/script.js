@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-
-    fetchQuizData();
-    showEnterNameView();
+    fetchQuizData()
+        .then(() => showEnterNameView())
+        .catch(error => console.error('Error fetching quiz data:', error));
 });
 
 let playerName = "";
@@ -10,12 +10,12 @@ let currentQuestionIndex = 0;
 let totalQuestionsAnswered = 0;
 let correctAnswers = 0;
 let startTime;
+let quizData; // Make quizData accessible across functions
 
 async function fetchQuizData() {
     try {
         const response = await fetch('https://my-json-server.typicode.com/SeamusSJU18/seamussju18.github.io');
-        const data = await response.json();
-        return data;
+        quizData = await response.json(); // Assign fetched data to quizData
     } catch (error) {
         console.error('Error fetching quiz data:', error);
     }
@@ -33,10 +33,9 @@ async function showEnterNameView() {
 
         return false;
     });
-} // This curly brace was missing
+}
 
 async function startQuiz(selectedQuizIndex) {
-    const quizData = await fetchQuizData();
     const selectedQuiz = quizData.Quiz[selectedQuizIndex];
     const quizTemplate = Handlebars.compile(document.getElementById('quiz-template').innerHTML);
     document.getElementById('app_widget').innerHTML = quizTemplate({ quiz: selectedQuiz });
@@ -46,7 +45,7 @@ async function startQuiz(selectedQuizIndex) {
 
 function submitAnswers() {
     const userAnswers = [];
-    const quiz = quizData[currentQuizIndex];
+    const quiz = quizData.Quiz[currentQuizIndex]; // Access quiz data from quizData
     quiz.questions.forEach((question, index) => {
         const answer = document.querySelector(`input[name="answer${index + 1}"]:checked`);
         if (answer) {
@@ -57,7 +56,7 @@ function submitAnswers() {
 }
 
 async function displayFeedback(userAnswers) {
-    const quiz = quizData[currentQuizIndex];
+    const quiz = quizData.Quiz[currentQuizIndex]; // Access quiz data from quizData
     const feedbackTemplate = Handlebars.compile(document.getElementById('feedback-template').innerHTML);
     let correct = 0;
     userAnswers.forEach((answer, index) => {
