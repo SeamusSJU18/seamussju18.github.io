@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
             const playerName = document.getElementById('name').value.trim();
             if (playerName !== '') {
-                const selectedQuiz = await fetchQuiz('https://my-json-server.typicode.com/SeamusSJU18/seamussju18.github.io/db');
+                const selectedQuiz = await fetchQuiz('https://my-json-server.typicode.com/SeamusSJU18/seamussju18.github.io');
                 renderQuiz(selectedQuiz, playerName);
             } else {
                 alert('Please enter your name.');
