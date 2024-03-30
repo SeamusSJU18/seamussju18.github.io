@@ -69,18 +69,25 @@ function renderQuestion() {
     }
 }
 
-function submitAnswers() {
-    const userAnswers = [];
-    const quiz = quizData.Quiz[currentQuizIndex]; // Access quiz data from quizData
-    quiz.questions.forEach((question, index) => {
-        const answer = document.querySelector(`input[name="answer${index + 1}"]:checked`);
-        if (answer) {
-            userAnswers.push(answer.value);
-        }
-    });
-    displayFeedback(userAnswers);
-}
+function submitAnswer() {
+    const question = quizData.Quiz[currentQuizIndex].questions[currentQuestionIndex - 1];
 
+    let userAnswer;
+    if (question.isMultipleChoice || question.isImageSelection) {
+        // For multiple choice or image selection, find the checked radio button
+        const selectedOption = document.querySelector('input[name="questionAnswer"]:checked');
+        userAnswer = selectedOption ? selectedOption.value : null;
+    } else if (question.isNarrative) {
+        // For narrative, get the text from the textarea
+        userAnswer = document.getElementById('narrativeAnswer').value;
+    }
+
+    if (userAnswer && userAnswer === question.answer) {
+        correctAnswers++; // Assuming `correctAnswers` is a variable tracking the number of correct answers
+        // Optionally, display some feedback here
+    } else {
+        // Optionally, handle incorrect answers
+    }
 async function displayFeedback(userAnswers) {
     const quiz = quizData.Quiz[currentQuizIndex]; // Access quiz data from quizData
     const feedbackTemplate = Handlebars.compile(document.getElementById('feedback-template').innerHTML);
