@@ -1,117 +1,115 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const appWidget = document.getElementById('app_widget');
+let playerName = "";
+let currentQuizIndex = -1;
+let currentQuestionIndex = 0;
+let totalQuestionsAnswered = 0;
+let correctAnswers = 0;
+let startTime;
 
-
-    renderEnterName();
-
-    async function renderEnterName() {
-        const enterNameTemplateSource = document.getElementById('enter_name').innerHTML;
-        const enterNameTemplate = Handlebars.compile(enterNameTemplateSource);
-        appWidget.innerHTML = enterNameTemplate();
-
-        const nameForm = document.getElementById('name-form');
-        nameForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const playerName = document.getElementById('name').value.trim();
-            if (playerName !== '') {
-                const selectedQuiz = await fetchQuiz('https://my-json-server.typicode.com/SeamusSJU18/seamussju18.github.io');
-                renderQuiz(selectedQuiz, playerName);
-            } else {
-                alert('Please enter your name.');
-            }
-        });
+async function fetchQuizData() {
+    try {
+        const response = await fetch('https://my-json-server.typicode.com/your-username/your-repo/Quiz');
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching quiz data:', error);
     }
-
-    async function fetchQuiz(baseUrl) {
-        try {
-            const response = await fetch(baseUrl);
-            if (!response.ok) {
-                throw new Error('Failed to fetch quiz');
-            }
-            return await response.json();
-        } catch (error) {
-            console.error('Error fetching quiz:', error);
-        }
-    }
-
-    function renderQuiz(quizData, playerName) {
-    
-    const quizTemplateSource = document.getElementById('quiz-template').innerHTML;
-    const quizTemplate = Handlebars.compile(quizTemplateSource);
-
-
-    const quizContext = {
-        quiz: quizData.Quiz[0]
-        playerName: playerName
-    };
-
-    const quizHtml = quizTemplate(quizContext);
-    const appWidget = document.getElementById('app_widget');
-    appWidget.innerHTML = quizHtml;
-
 }
-    
-    function collectAnswers() {
-        const answers = [];
-        const questions = document.querySelectorAll('.question');
-        questions.forEach((question, index) => {
-            if (question.classList.contains('multipleChoice')) {
-                const selectedOption = question.querySelector('input[type="radio"]:checked');
-                answers.push(selectedOption ? selectedOption.value : '');
+
+function showEnterNameView() {
+    const enterNameTemplate = Handlebars.compile(document.getElementById('enter_name').innerHTML);
+    document.getElementById('app_widget').innerHTML = enterNameTemplate();
+    document.getElementById('name-form').addEventListener('submit', (event) => {
+        event.preventDefault();
+        playerName = event.target.elements['name'].value;
+        showQuizSelectionView();
+    });
+}
+
+async function showQuizSelectionView() {
+    const quizData = await fetchQuizData();
+    const quizSelectionTemplate = Handlebars.compile(document.getElementById('quiz_selection').innerHTML);
+    document.getElementById('app_widget').innerHTML = quizSelectionTemplate({ quizzes: quizData });
+    document.querySelectorAll('.start-quiz-btn').forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+            currentQuizIndex = index;
+            startQuiz();
+        });
+    });
+}
+
+async function startQuiz() {
+    const quizData = await fetchQuizData();
+    const quiz = quizData[currentQuizIndex];
+    const quizTemplate = Handlebars.compile(document.getElementById('quiz-template').innerHTML);
+    document.getElementById('app_widget').innerHTML = quizTemplate({ quiz: quiz });
+
+     document.getElementById('submitAnswersBtn').addEventListener('click', submitAnswers);
+
+     startTime = Date.now();
+}
+
+function submitAnswers() {
+    const userAnswers = [];
+    const quiz = quizData[currentQuizIndex];
+    quiz.questions.forEach((question, index) => {
+        const answer = document.querySelector(`input[name="answer${index + 1}"]:checked`);
+        if (answer) {
+            userAnswers.push(answer.value);
+        }
+    });
+
+    displayFeedback(userAnswers);
+}
+
+async function displayFeedback(userAnswers) {
+    const quiz = quizData[currentQuizIndex];
+    const feedbackTemplate = Handlebars.compile(document.getElementById('feedback-template').innerHTML);
+    let correct = 0;
+
+    userAnswers.forEach((answer, index) => {
+        const question = quiz.questions[index];
+        if (answer === question.answer) {
+            correct++;
+        }
+    });
+
+    correctAnswers += correct;
+    totalQuestionsAnswered += quiz.questions.length;
+
+    document.getElementById('app_widget').innerHTML = feedbackTemplate({ correct: correct });
+    if (correct < quiz.questions.length) {
+        const correctAnswer = quiz.questions[currentQuestionIndex].answer;
+        document.querySelector('.card-text').textContent += ` The correct answer is: ${correctAnswer}.`;
+        document.getElementById('gotItBtn').addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quiz.questions.length) {
+                renderQuestion();
             } else {
-                const answerTextarea = question.querySelector('textarea');
-                answers.push(answerTextarea.value.trim());
+                showScoreboard();
             }
         });
-        return answers;
-    }
-
-    async function evaluateAnswers(quiz, answers) {
-        let correctAnswers = 0;
-        for (let i = 0; i < quiz.questions.length; i++) {
-            const question = quiz.questions[i];
-            const userAnswer = answers[i];
-            if (question.type === 'multipleChoice' || question.type === 'imageSelection') {
-                if (userAnswer === question.answer) {
-                    correctAnswers++;
-                }
-            } else if (question.type === 'narrative') {
-                if (userAnswer.toLowerCase() === question.answer.toLowerCase()) {
-                    correctAnswers++;
-                }
+    } else {
+        setTimeout(() => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quiz.questions.length) {
+                renderQuestion();
+            } else {
+                showScoreboard();
             }
-        }
-        return Math.round((correctAnswers / quiz.questions.length) * 100);
+        }, 1000);
     }
+}
 
-    function renderFeedback(score, playerName) {
-        const feedbackTemplateSource = document.getElementById('feedback-template').innerHTML;
-        const feedbackTemplate = Handlebars.compile(feedbackTemplateSource);
-        const correct = score >= 80;
-        const correctAnswer = correct ? '' : getCorrectAnswers();
-        appWidget.innerHTML = feedbackTemplate({ correct, correctAnswer });
+function showScoreboard() {
+    const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2);
+    const totalScore = ((correctAnswers / totalQuestionsAnswered) * 100).toFixed(2);
+    const scoreboardTemplate = Handlebars.compile(document.getElementById('scoreboard-template').innerHTML);
+    document.getElementById('app_widget').innerHTML = scoreboardTemplate({
+        playerName: playerName,
+        questionsAnswered: totalQuestionsAnswered,
+        elapsedTime: elapsedTime,
+        totalScore: totalScore
+    });
+}
 
-        if (!correct) {
-            const gotItBtn = document.getElementById('gotItBtn');
-            gotItBtn.addEventListener('click', () => {
-                const selectedQuiz = fetchQuiz('https://my-json-server.typicode.com/yourusername/yourrepositoryname/Quiz/1'); // Change the quiz number and URL as needed
-                renderQuiz(selectedQuiz, playerName);
-            });
-        } else {
-            setTimeout(() => {
-                const selectedQuiz = fetchQuiz('https://my-json-server.typicode.com/yourusername/yourrepositoryname/Quiz/1'); // Change the quiz number and URL as needed
-                renderQuiz(selectedQuiz, playerName);
-            }, 1000);
-        }
-    }
-
-    function getCorrectAnswers() {
-        const questions = document.querySelectorAll('.question');
-        const correctAnswers = [];
-        questions.forEach((question, index) => {
-            const correctAnswer = question.querySelector('input[type="radio"][value]').value;
-            correctAnswers.push(correctAnswer);
-        });
-        return correctAnswers;
-    }
-});
+showEnterNameView();
