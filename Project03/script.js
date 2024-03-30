@@ -38,6 +38,7 @@ async function showEnterNameView() {
             startQuiz(currentQuizIndex);
         });
     });
+    reutrn false;
 }
 async function startQuiz(selectedQuizIndex) {
     const selectedQuiz = quizData.Quiz[selectedQuizIndex];
