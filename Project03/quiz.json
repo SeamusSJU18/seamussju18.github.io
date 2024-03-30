@@ -1,67 +1,82 @@
-{"Quiz": {
-    "quizNo": 1,
-    "name": "Quiz 1",
-    "questions": [
-        {"num": 1,
-         "type": "multipleChoice",
-         "question": "What does CSS stand for?",
-         "choices": ["Crispy Spicy Sauce", "Cascading Style Sheets", "Cascade Style Effect", "Cascade Sheet Style"],
-         "answer": "Cascading Style Sheets"
+
+{
+  "Quiz": [
+    {
+      "quizNo": 1,
+      "name": "Quiz 1",
+      "questions": [
+        {
+          "num": 1,
+          "type": "multipleChoice",
+          "question": "What does CSS stand for?",
+          "choices": ["Crispy Spicy Sauce", "Cascading Style Sheets", "Cascade Style Effect", "Cascade Sheet Style"],
+          "answer": "Cascading Style Sheets"
         },
-        {"num": 2,
-         "type": "imageSelection",
-         "question": "Which one of these images is JavaScript syntax?",
-         "choices": ["/cppcode.png", "javaCode.png", "JavaScript_code.png", "PythonCode.png"],
-         "answer": "JavaScript_code.png"
-         },
-         {"num": 3,
+        {
+          "num": 2,
+          "type": "imageSelection",
+          "question": "Which one of these images is JavaScript syntax?",
+          "choices": ["/cppcode.png", "javaCode.png", "JavaScript_code.png", "PythonCode.png"],
+          "answer": "JavaScript_code.png"
+        },
+        {
+          "num": 3,
           "type": "narrative",
           "question": "What does DOM stand for?",
           "answer": "Document Object Model"
-        }
-        {"num": 4,
-         "type": "narrative",
-         "question": "What does HTML stand for?",
-         "answer": "Hypertext Markup Language"
-        }
-        {"num": 5,
-         "type": "multipleChoice",
-         "question": "Which of these do you use to declare a variable in JavaScript?",
-         "choices": ["int", "final", "double", "var"],
-         "answer": "var"
-        }
-    ]
-   },
-   {"quizNo": 2,
-    "name": "Quiz 2",
-    "questions": [
-        {"num": 1,
-         "type": "narrative",
-         "question": "What coding language is used to style your HTML code?",
-         "answer": "CSS"
         },
-        {"num": 2,
-         "type": "imageSelection",
-         "question": "Which one of these images is Java syntax?",
-         "choices": ["/cppcode.png", "javaCode.png", "JavaScript_code.png", "PythonCode.png"],
-         "answer": "javaCode.png"
-         },
-         {"num": 3,
+        {
+          "num": 4,
+          "type": "narrative",
+          "question": "What does HTML stand for?",
+          "answer": "Hypertext Markup Language"
+        },
+        {
+          "num": 5,
+          "type": "multipleChoice",
+          "question": "Which of these do you use to declare a variable in JavaScript?",
+          "choices": ["int", "final", "double", "var"],
+          "answer": "var"
+        }
+      ]
+    },
+    {
+      "quizNo": 2,
+      "name": "Quiz 2",
+      "questions": [
+        {
+          "num": 1,
+          "type": "narrative",
+          "question": "What coding language is used to style your HTML code?",
+          "answer": "CSS"
+        },
+        {
+          "num": 2,
+          "type": "imageSelection",
+          "question": "Which one of these images is Java syntax?",
+          "choices": ["/cppcode.png", "javaCode.png", "JavaScript_code.png", "PythonCode.png"],
+          "answer": "javaCode.png"
+        },
+        {
+          "num": 3,
           "type": "narrative",
           "question": "How many columns can you have in Bootstrap",
           "answer": "12"
+        },
+        {
+          "num": 4,
+          "type": "narrative",
+          "question": "What year was HTML created?",
+          "answer": "1993"
+        },
+        {
+          "num": 5,
+          "type": "multipleChoice",
+          "question": "Which of these do you use to declare a constant in JavaScript?",
+          "choices": ["const", "final", "constant", "cons"],
+          "answer": "const"
         }
-        {"num": 4,
-         "type": "narrative",
-         "question": "What year was HTML created?",
-         "answer": "1993"
-        }
-        {"num": 5,
-         "type": "multipleChoice",
-         "question": "Which of these do you use to declare a constant in JavaScript?",
-         "choices": ["const", "final", "constant", "cons"],
-         "answer": "const"
-        }
-    ]
-  }
+      ]
+    }
+  ]
 }
