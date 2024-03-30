@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', async function() {
     let quizData = [];
     let playerName = '';
-    let selectedQuiz = null;
+    let selectedQuiz = 1;
 
     async function fetchQuizData() {
         try {
