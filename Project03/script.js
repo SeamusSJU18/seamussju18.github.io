@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', async function() {
     let quizData = [];
     let playerName = '';
-    let selectedQuiz = 1;
+    let selectedQuiz = null;
 
     async function fetchQuizData() {
         try {
@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         const startPageTemplate = Handlebars.compile(document.getElementById('enter_name').innerHTML);
         document.getElementById('app_widget').innerHTML = startPageTemplate({ quizzes: quizData });
         document.getElementById('name-form').addEventListener('submit', startQuiz);
+        return false;
     }
 
     function startQuiz(event) {
