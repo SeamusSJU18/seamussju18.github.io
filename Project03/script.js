@@ -83,10 +83,9 @@ function submitAnswer() {
     }
 
     if (userAnswer && userAnswer === question.answer) {
-        correctAnswers++; // Assuming `correctAnswers` is a variable tracking the number of correct answers
-        // Optionally, display some feedback here
+        correctAnswers++; 
     } else {
-        // Optionally, handle incorrect answers
+        
     }
 async function displayFeedback(userAnswers) {
     const quiz = quizData.Quiz[currentQuizIndex]; // Access quiz data from quizData
