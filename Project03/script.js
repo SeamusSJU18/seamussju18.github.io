@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded',() {
     let quizData = [];
     let playerName = '';
     let selectedQuiz = null;
