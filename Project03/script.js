@@ -20,13 +20,18 @@ async function fetchQuizData() {
     }
 }
 
-function showEnterNameView() {
+async function showEnterNameView() {
     const enterNameTemplate = Handlebars.compile(document.getElementById('enter_name').innerHTML);
     document.getElementById('app_widget').innerHTML = enterNameTemplate();
-    document.getElementById('name-form').addEventListener('submit', (event) => {
+    document.getElementById('name-form').addEventListener('submit', async (event) => {
         event.preventDefault();
         playerName = event.target.elements['name'].value;
-        startQuiz();
+
+        const selectedQuizIndex = parseInt(event.submitter.dataset.quizIndex);
+        const quizData = await fetchQuizData();
+        const selectedQuiz = quizData.Quiz[selectedQuizIndex];
+        startQuiz(selectedQuiz);
+
         return false;
     });
 }
@@ -42,9 +47,7 @@ async function showQuizSelectionView() {
     });
 }
 
-async function startQuiz() {
-    const quizData = await fetchQuizData();
-    const quiz = quizData[currentQuizIndex];
+async function startQuiz(quiz) {
     const quizTemplate = Handlebars.compile(document.getElementById('quiz-template').innerHTML);
     document.getElementById('app_widget').innerHTML = quizTemplate({ quiz: quiz });
     document.getElementById('submitAnswersBtn').addEventListener('click', submitAnswers);
