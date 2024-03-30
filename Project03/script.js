@@ -10,7 +10,7 @@ let currentQuestionIndex = 0;
 let totalQuestionsAnswered = 0;
 let correctAnswers = 0;
 let startTime;
-let quizData; // Make quizData accessible across functions
+let quizData;
 
 async function fetchQuizData() {
     try {
@@ -27,7 +27,6 @@ async function showEnterNameView() {
 
     const startQuizButtons = document.querySelectorAll('.start-quiz-btn');
 
-    // Add event listeners to each start-quiz button
     startQuizButtons.forEach(button => {
         button.addEventListener('click', function(event) {
             playerName = document.getElementById('name').value.trim();
