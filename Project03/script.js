@@ -35,13 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderQuiz(quizData, playerName) {
-    // Compile the Handlebars template
+    
     const quizTemplateSource = document.getElementById('quiz-template').innerHTML;
     const quizTemplate = Handlebars.compile(quizTemplateSource);
 
-    // Prepare data to pass to the template
+
     const quizContext = {
-        quiz: quizData.Quiz[0], // Assuming you are rendering the first quiz
+        quiz: quizData.Quiz[0]
         playerName: playerName
     };
 
