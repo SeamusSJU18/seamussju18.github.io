@@ -93,38 +93,40 @@
 
 <script id="quiz-question-template" type="text/x-handlebars-template">
     <div class="quiz-question">
-        <h2 class="text-center">Question {{questionIndex}}/{{totalQuestions}}</h2>
-        <p>{{question.text}}</p>
+        <h2 class="text-center">Question {{questionIndex}} of {{totalQuestions}}</h2>
+        <p>{{question.question}}</p>
         
         {{#if question.isMultipleChoice}}
-        <form id="multipleChoiceForm">
+        <div>
             {{#each question.choices as |choice index|}}
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="questionAnswer" id="multipleChoice{{index}}" value="{{choice}}">
-                <label class="form-check-label" for="multipleChoice{{index}}">{{choice}}</label>
+                <input class="form-check-input" type="radio" name="questionAnswer" id="choice{{index}}" value="{{choice}}">
+                <label class="form-check-label" for="choice{{index}}">{{choice}}</label>
             </div>
             {{/each}}
-        </form>
+        </div>
         {{/if}}
         
         {{#if question.isImageSelection}}
-        <form id="imageSelectionForm">
+        <div>
             {{#each question.choices as |choice index|}}
-            <div class="image-choice">
+            <div class="image-selection">
                 <label for="imageChoice{{index}}">
-                    <img src="{{choice}}" alt="Image Choice {{index}}" class="img-fluid">
+                    <img src="{{choice}}" alt="Choice {{index}}" class="img-fluid img-thumbnail">
                     <input type="radio" name="questionAnswer" id="imageChoice{{index}}" value="{{choice}}" class="d-none">
                 </label>
             </div>
             {{/each}}
-        </form>
+        </div>
         {{/if}}
         
         {{#if question.isNarrative}}
-        <textarea id="narrativeAnswer" class="form-control" rows="3" placeholder="Type your answer here"></textarea>
+        <div>
+            <textarea class="form-control" name="questionAnswer" id="narrativeAnswer" rows="3" placeholder="Type your answer here"></textarea>
+        </div>
         {{/if}}
         
-        <button class="btn btn-primary mt-3 submit-answer-btn">Submit Answer</button>
+        <button class="btn btn-primary mt-3" id="submitAnswerBtn">Submit Answer</button>
     </div>
 </script>
 
