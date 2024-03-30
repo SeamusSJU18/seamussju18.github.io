@@ -90,6 +90,44 @@
         </div>
     </div>
 </script>
+
+<script id="quiz-question-template" type="text/x-handlebars-template">
+    <div class="quiz-question">
+        <h2 class="text-center">Question {{questionIndex}}/{{totalQuestions}}</h2>
+        <p>{{question.text}}</p>
+        
+        {{#if question.isMultipleChoice}}
+        <form id="multipleChoiceForm">
+            {{#each question.choices as |choice index|}}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="questionAnswer" id="multipleChoice{{index}}" value="{{choice}}">
+                <label class="form-check-label" for="multipleChoice{{index}}">{{choice}}</label>
+            </div>
+            {{/each}}
+        </form>
+        {{/if}}
+        
+        {{#if question.isImageSelection}}
+        <form id="imageSelectionForm">
+            {{#each question.choices as |choice index|}}
+            <div class="image-choice">
+                <label for="imageChoice{{index}}">
+                    <img src="{{choice}}" alt="Image Choice {{index}}" class="img-fluid">
+                    <input type="radio" name="questionAnswer" id="imageChoice{{index}}" value="{{choice}}" class="d-none">
+                </label>
+            </div>
+            {{/each}}
+        </form>
+        {{/if}}
+        
+        {{#if question.isNarrative}}
+        <textarea id="narrativeAnswer" class="form-control" rows="3" placeholder="Type your answer here"></textarea>
+        {{/if}}
+        
+        <button class="btn btn-primary mt-3 submit-answer-btn">Submit Answer</button>
+    </div>
+</script>
+
 <script id="feedback-template" type="text/x-handlebars-template">
     <div class="container">
         <div class="row justify-content-center">
