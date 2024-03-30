@@ -12,7 +12,7 @@ let startTime;
 
 async function fetchQuizData() {
     try {
-        const response = await fetch('https://my-json-server.typicode.com/your-username/your-repo/Quiz');
+        const response = await fetch('https://my-json-server.typicode.com/SeamusSJU18/seamussju18.github.io/db');
         const data = await response.json();
         return data;
     } catch (error) {
