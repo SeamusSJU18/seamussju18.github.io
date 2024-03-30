@@ -41,13 +41,14 @@ async function showEnterNameView() {
     return false;
 }
 async function startQuiz(selectedQuizIndex) {
+    currentQuizIndex = selectedQuizIndex; 
     const selectedQuiz = quizData.Quiz[selectedQuizIndex];
-    const quizTemplate = Handlebars.compile(document.getElementById('quiz-template').innerHTML);
-    document.getElementById('app_widget').innerHTML = quizTemplate({ quiz: selectedQuiz });
-    document.getElementById('submitAnswersBtn').addEventListener('click', submitAnswers);
-    startTime = Date.now();
-}
+    document.getElementById('app_widget').innerHTML = `<h3>${selectedQuiz.name}</h3>`;
 
+    startTime = Date.now();
+
+    renderQuestion();
+}
 function renderQuestion() {
     if (currentQuestionIndex < quizData.Quiz[currentQuizIndex].questions.length) {
         const question = quizData.Quiz[currentQuizIndex].questions[currentQuestionIndex];
