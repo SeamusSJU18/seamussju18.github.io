@@ -22,19 +22,15 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     function startQuiz(event) {
-        event.preventDefault();
-        const nameInput = document.getElementById('name');
-        playerName = nameInput.value.trim();
-        const quizSelect = document.getElementById('quiz-select');
-        const selectedIndex = quizSelect.selectedIndex;
-        selectedQuiz = quizData[selectedIndex];
-        if (playerName && selectedQuiz) {
-            renderQuiz();
-        } else {
-            console.log('Please enter your name and select a quiz');
-        }
+    event.preventDefault();
+    const nameInput = document.getElementById('name');
+    playerName = nameInput.value.trim();
+    if (playerName) {
+        renderQuiz(); // Directly render the quiz
+    } else {
+        console.log('Please enter your name');
     }
-
+}
     function renderQuiz() {
         const quizTemplate = Handlebars.compile(document.getElementById('quiz-template').innerHTML);
         document.getElementById('app_widget').innerHTML = quizTemplate({ quiz: selectedQuiz });
