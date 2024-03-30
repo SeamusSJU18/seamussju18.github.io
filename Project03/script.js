@@ -1,3 +1,8 @@
+
+document.addEventListener('DOMContentLoaded', () => {
+    showEnterNameView();
+});
+
 let playerName = "";
 let currentQuizIndex = -1;
 let currentQuestionIndex = 0;
@@ -42,10 +47,8 @@ async function startQuiz() {
     const quiz = quizData[currentQuizIndex];
     const quizTemplate = Handlebars.compile(document.getElementById('quiz-template').innerHTML);
     document.getElementById('app_widget').innerHTML = quizTemplate({ quiz: quiz });
-
-     document.getElementById('submitAnswersBtn').addEventListener('click', submitAnswers);
-
-     startTime = Date.now();
+    document.getElementById('submitAnswersBtn').addEventListener('click', submitAnswers);
+    startTime = Date.now();
 }
 
 function submitAnswers() {
@@ -57,7 +60,6 @@ function submitAnswers() {
             userAnswers.push(answer.value);
         }
     });
-
     displayFeedback(userAnswers);
 }
 
@@ -65,17 +67,14 @@ async function displayFeedback(userAnswers) {
     const quiz = quizData[currentQuizIndex];
     const feedbackTemplate = Handlebars.compile(document.getElementById('feedback-template').innerHTML);
     let correct = 0;
-
     userAnswers.forEach((answer, index) => {
         const question = quiz.questions[index];
         if (answer === question.answer) {
             correct++;
         }
     });
-
     correctAnswers += correct;
     totalQuestionsAnswered += quiz.questions.length;
-
     document.getElementById('app_widget').innerHTML = feedbackTemplate({ correct: correct });
     if (correct < quiz.questions.length) {
         const correctAnswer = quiz.questions[currentQuestionIndex].answer;
@@ -111,5 +110,3 @@ function showScoreboard() {
         totalScore: totalScore
     });
 }
-
-showEnterNameView();
