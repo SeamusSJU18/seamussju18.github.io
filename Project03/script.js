@@ -34,19 +34,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    async function renderQuiz(quiz, playerName) {
-        const quizTemplateSource = document.getElementById('quiz-template').innerHTML;
-        const quizTemplate = Handlebars.compile(quizTemplateSource);
-        appWidget.innerHTML = quizTemplate({ quiz });
+    function renderQuiz(quizData, playerName) {
+    // Compile the Handlebars template
+    const quizTemplateSource = document.getElementById('quiz-template').innerHTML;
+    const quizTemplate = Handlebars.compile(quizTemplateSource);
 
-        const submitAnswersBtn = document.getElementById('submitAnswersBtn');
-        submitAnswersBtn.addEventListener('click', async () => {
-            const answers = collectAnswers();
-            const score = await evaluateAnswers(quiz, answers);
-            renderFeedback(score, playerName);
-        });
-    }
+    // Prepare data to pass to the template
+    const quizContext = {
+        quiz: quizData.Quiz[0], // Assuming you are rendering the first quiz
+        playerName: playerName
+    };
 
+    const quizHtml = quizTemplate(quizContext);
+    const appWidget = document.getElementById('app_widget');
+    appWidget.innerHTML = quizHtml;
+
+}
+    
     function collectAnswers() {
         const answers = [];
         const questions = document.querySelectorAll('.question');
