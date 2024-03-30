@@ -24,17 +24,22 @@ async function fetchQuizData() {
 async function showEnterNameView() {
     const enterNameTemplate = Handlebars.compile(document.getElementById('enter_name').innerHTML);
     document.getElementById('app_widget').innerHTML = enterNameTemplate();
-    document.getElementById('name-form').addEventListener('submit', async (event) => {
-        event.preventDefault();
-        playerName = event.target.elements['name'].value;
 
-        const selectedQuizIndex = parseInt(event.submitter.dataset.quizIndex);
-        startQuiz(selectedQuizIndex); // Pass the selected quiz index to startQuiz function
+    const startQuizButtons = document.querySelectorAll('.start-quiz-btn');
 
-        return false;
+    // Add event listeners to each start-quiz button
+    startQuizButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            playerName = document.getElementById('name').value.trim();
+            if (playerName === '') {
+                alert('Please enter your name');
+                return;
+            }
+            currentQuizIndex = parseInt(this.getAttribute('data-quiz-index'));
+            startQuiz(currentQuizIndex);
+        });
     });
 }
-
 async function startQuiz(selectedQuizIndex) {
     const selectedQuiz = quizData.Quiz[selectedQuizIndex];
     const quizTemplate = Handlebars.compile(document.getElementById('quiz-template').innerHTML);
