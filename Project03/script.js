@@ -48,6 +48,27 @@ async function startQuiz(selectedQuizIndex) {
     startTime = Date.now();
 }
 
+function renderQuestion() {
+    if (currentQuestionIndex < quizData.Quiz[currentQuizIndex].questions.length) {
+        const question = quizData.Quiz[currentQuizIndex].questions[currentQuestionIndex];
+        const questionTemplate = Handlebars.compile(document.getElementById('quiz-question-template').innerHTML); // Ensure you have a template with this ID
+        
+        document.getElementById('app_widget').innerHTML = questionTemplate({
+            quizNo: currentQuizIndex + 1,
+            name: quizData.Quiz[currentQuizIndex].name,
+            question: question,
+            questionIndex: currentQuestionIndex + 1,
+            totalQuestions: quizData.Quiz[currentQuizIndex].questions.length
+        });
+
+        // Increment the index to prepare for the next question
+        currentQuestionIndex++;
+    } else {
+        // If there are no more questions, show the scoreboard or final message
+        showScoreboard();
+    }
+}
+
 function submitAnswers() {
     const userAnswers = [];
     const quiz = quizData.Quiz[currentQuizIndex]; // Access quiz data from quizData
