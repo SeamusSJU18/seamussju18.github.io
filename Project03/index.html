@@ -52,27 +52,34 @@
             <div class="col-md-8">
                 <div class="card mt-5">
                     <div class="card-body">
-                        <h5 class="card-title">Quiz {{ quiz.quizNo }} - {{ quiz.name }}</h5>
-                        {{#each quiz.questions}}
+                        <h5 class="card-title">Quiz {{quizNo}} - {{name}}</h5>
+                        {{#each questions}}
                             <div class="question">
-                                <p>Question {{ num }}:</p>
-                                {{#if type '===' 'multipleChoice'}}
-                                    {{#each choices}}
+                                <p>Question {{@index}}: {{this.question}}</p>
+                                {{#if this.isMultipleChoice}}
+                                    <!-- Render options for a Multiple Choice question -->
+                                    {{#each this.choices}}
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="answer{{../num}}" id="choice{{../num}}-{{@index}}" value="{{this}}">
-                                            <label class="form-check-label" for="choice{{../num}}-{{@index}}">{{this}}</label>
+                                            <input class="form-check-input" type="radio" name="answer{{@../index}}" id="choice{{@../index}}-{{@index}}" value="{{this}}">
+                                            <label class="form-check-label" for="choice{{@../index}}-{{@index}}">{{this}}</label>
                                         </div>
                                     {{/each}}
-                                {{else if type '===' 'imageSelection'}}
-                                    {{#each choices}}
-                                        <img src="{{this}}" alt="Image{{@index}}" class="img-fluid rounded mx-auto d-block mb-3">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="answer{{../num}}" id="choice{{../num}}-{{@index}}" value="{{this}}">
-                                            <label class="form-check-label" for="choice{{../num}}-{{@index}}">Image{{@index}}</label>
+                                {{/if}}
+                                
+                                {{#if this.isImageSelection}}
+                                    <!-- Render options for an Image Selection question -->
+                                    {{#each this.choices}}
+                                        <div class="image-selection">
+                                            <img src="{{this}}" alt="Image choice {{@index}}" class="img-fluid rounded mx-auto d-block mb-3">
+                                            <input type="radio" name="answer{{@../index}}" id="imageChoice{{@../index}}-{{@index}}" value="{{this}}">
+                                            <label for="imageChoice{{@../index}}-{{@index}}">Image {{@index}}</label>
                                         </div>
                                     {{/each}}
-                                {{else}}
-                                    <textarea class="form-control" name="answer{{num}}" id="answerTextarea{{num}}" rows="3" placeholder="Type your answer"></textarea>
+                                {{/if}}
+                                
+                                {{#if this.isNarrative}}
+                                    <!-- Render a textarea for a Narrative question -->
+                                    <textarea class="form-control" name="answer{{@index}}" id="narrativeAnswer{{@index}}" rows="3" placeholder="Type your answer here"></textarea>
                                 {{/if}}
                             </div>
                         {{/each}}
@@ -83,7 +90,6 @@
         </div>
     </div>
 </script>
-
 <script id="feedback-template" type="text/x-handlebars-template">
     <div class="container">
         <div class="row justify-content-center">
