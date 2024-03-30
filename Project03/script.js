@@ -26,7 +26,7 @@ function showEnterNameView() {
     document.getElementById('name-form').addEventListener('submit', (event) => {
         event.preventDefault();
         playerName = event.target.elements['name'].value;
-        showQuizSelectionView();
+        startQuiz();
         return false;
     });
 }
