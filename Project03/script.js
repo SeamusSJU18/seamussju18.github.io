@@ -50,25 +50,32 @@ async function startQuiz(selectedQuizIndex) {
     renderQuestion();
 }
 function renderQuestion() {
+    
     if (currentQuestionIndex < quizData.Quiz[currentQuizIndex].questions.length) {
+        
         const question = quizData.Quiz[currentQuizIndex].questions[currentQuestionIndex];
-        const questionTemplate = Handlebars.compile(document.getElementById('quiz-question-template').innerHTML); // Ensure you have a template with this ID
+
+       
+        const questionTemplate = Handlebars.compile(document.getElementById('quiz-question-template').innerHTML);
+        
         
         document.getElementById('app_widget').innerHTML = questionTemplate({
-            quizNo: currentQuizIndex + 1,
-            name: quizData.Quiz[currentQuizIndex].name,
-            question: question,
             questionIndex: currentQuestionIndex + 1,
-            totalQuestions: quizData.Quiz[currentQuizIndex].questions.length
+            totalQuestions: quizData.Quiz[currentQuizIndex].questions.length,
+            question: question,
         });
 
-        currentQuestionIndex++;
-    } else {
         
+        document.getElementById('submitAnswerBtn').addEventListener('click', function() {
+            
+            submitAnswer();
+        });
+
+    } else {
+       
         showScoreboard();
     }
 }
-
 function submitAnswer() {
     const question = quizData.Quiz[currentQuizIndex].questions[currentQuestionIndex - 1];
 
