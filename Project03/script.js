@@ -29,32 +29,19 @@ async function showEnterNameView() {
         playerName = event.target.elements['name'].value;
 
         const selectedQuizIndex = parseInt(event.submitter.dataset.quizIndex);
-        const quizData = await fetchQuizData();
-        const selectedQuiz = quizData.Quiz[selectedQuizIndex];
-        startQuiz(selectedQuiz);
+        startQuiz(selectedQuizIndex); // Pass the selected quiz index to startQuiz function
 
         return false;
     });
-}
-async function showQuizSelectionView() {
+    
+async function startQuiz(selectedQuizIndex) {
     const quizData = await fetchQuizData();
-    const quizSelectionTemplate = Handlebars.compile(document.getElementById('quiz-selection-template').innerHTML);
-    document.getElementById('app_widget').innerHTML = quizSelectionTemplate({ quizzes: quizData });
-    document.querySelectorAll('.start-quiz-btn').forEach((btn, index) => {
-        btn.addEventListener('click', () => {
-            currentQuizIndex = index;
-            startQuiz();
-        });
-    });
-}
-
-async function startQuiz(quiz) {
+    const selectedQuiz = quizData.Quiz[selectedQuizIndex];
     const quizTemplate = Handlebars.compile(document.getElementById('quiz-template').innerHTML);
-    document.getElementById('app_widget').innerHTML = quizTemplate({ quiz: quiz });
+    document.getElementById('app_widget').innerHTML = quizTemplate({ quiz: selectedQuiz });
     document.getElementById('submitAnswersBtn').addEventListener('click', submitAnswers);
     startTime = Date.now();
 }
-
 function submitAnswers() {
     const userAnswers = [];
     const quiz = quizData[currentQuizIndex];
