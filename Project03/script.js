@@ -62,10 +62,9 @@ function renderQuestion() {
             totalQuestions: quizData.Quiz[currentQuizIndex].questions.length
         });
 
-        // Increment the index to prepare for the next question
         currentQuestionIndex++;
     } else {
-        // If there are no more questions, show the scoreboard or final message
+        
         showScoreboard();
     }
 }
