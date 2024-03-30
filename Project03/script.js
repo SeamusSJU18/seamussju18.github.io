@@ -27,9 +27,9 @@ function showEnterNameView() {
         event.preventDefault();
         playerName = event.target.elements['name'].value;
         showQuizSelectionView();
+        return false;
     });
 }
-
 async function showQuizSelectionView() {
     const quizData = await fetchQuizData();
     const quizSelectionTemplate = Handlebars.compile(document.getElementById('quiz_selection').innerHTML);
@@ -40,7 +40,6 @@ async function showQuizSelectionView() {
             startQuiz();
         });
     });
-    return false;
 }
 
 async function startQuiz() {
