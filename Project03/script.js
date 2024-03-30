@@ -14,7 +14,7 @@ let quizData; // Make quizData accessible across functions
 
 async function fetchQuizData() {
     try {
-        const response = await fetch('https://my-json-server.typicode.com/SeamusSJU18/seamussju18.github.io');
+        const response = await fetch('https://my-json-server.typicode.com/SeamusSJU18/seamussju18.github.io/db');
         quizData = await response.json(); // Assign fetched data to quizData
     } catch (error) {
         console.error('Error fetching quiz data:', error);
