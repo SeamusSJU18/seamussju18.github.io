@@ -84,24 +84,30 @@ function renderQuestion() {
     }
 }
 function submitAnswer() {
-    const question = quizData.Quiz[currentQuizIndex].questions[currentQuestionIndex - 1];
+    const question = quizData.Quiz[currentQuizIndex].questions[currentQuestionIndex];
 
     let userAnswer;
     if (question.isMultipleChoice || question.isImageSelection) {
-        // For multiple choice or image selection, find the checked radio button
         const selectedOption = document.querySelector('input[name="questionAnswer"]:checked');
         userAnswer = selectedOption ? selectedOption.value : null;
     } else if (question.isNarrative) {
-        // For narrative, get the text from the textarea
         userAnswer = document.getElementById('narrativeAnswer').value;
     }
 
     if (userAnswer && userAnswer === question.answer) {
-        correctAnswers++; 
+        correctAnswers++; // Correct answer handling
+    }
+
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex < quizData.Quiz[currentQuizIndex].questions.length) {
+        renderQuestion();
     } else {
         
+        showScoreboard();
     }
 }
+
 async function displayFeedback(userAnswers) {
     const quiz = quizData.Quiz[currentQuizIndex]; // Access quiz data from quizData
     const feedbackTemplate = Handlebars.compile(document.getElementById('feedback-template').innerHTML);
