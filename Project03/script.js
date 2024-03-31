@@ -94,6 +94,7 @@ function submitAnswer() {
     } else {
         
     }
+}
 async function displayFeedback(userAnswers) {
     const quiz = quizData.Quiz[currentQuizIndex]; // Access quiz data from quizData
     const feedbackTemplate = Handlebars.compile(document.getElementById('feedback-template').innerHTML);
