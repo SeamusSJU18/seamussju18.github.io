@@ -16,11 +16,18 @@ async function fetchQuizData() {
     try {
         const response = await fetch('https://my-json-server.typicode.com/SeamusSJU18/seamussju18.github.io/db');
         quizData = await response.json();
+        
+        quizData.Quiz.forEach(quiz => {
+            quiz.questions.forEach(question => {
+                question.isMultipleChoice = question.type === 'multipleChoice';
+                question.isImageSelection = question.type === 'imageSelection';
+                question.isNarrative = question.type === 'narrative';
+            });
+        });
     } catch (error) {
         console.error('Error fetching quiz data:', error);
     }
 }
-
 async function showEnterNameView() {
     const enterNameTemplate = Handlebars.compile(document.getElementById('enter_name').innerHTML);
     document.getElementById('app_widget').innerHTML = enterNameTemplate();
