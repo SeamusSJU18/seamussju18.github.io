@@ -130,6 +130,7 @@ async function displayFeedback(userAnswers) {
         }, 1000);
     }
 }
+}
 
 function showScoreboard() {
     const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2);
