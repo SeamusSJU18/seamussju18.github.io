@@ -95,7 +95,7 @@ function submitAnswer() {
     }
 
     if (userAnswer && userAnswer === question.answer) {
-        correctAnswers++; // Correct answer handling
+        correctAnswers++; 
     }
 
     currentQuestionIndex++;
@@ -109,7 +109,7 @@ function submitAnswer() {
 }
 
 async function displayFeedback(userAnswers) {
-    const quiz = quizData.Quiz[currentQuizIndex]; // Access quiz data from quizData
+    const quiz = quizData.Quiz[currentQuizIndex]; 
     const feedbackTemplate = Handlebars.compile(document.getElementById('feedback-template').innerHTML);
     let correct = 0;
     userAnswers.forEach((answer, index) => {
