@@ -97,9 +97,9 @@ function submitAnswer() {
     let feedbackMessage;
     if (userAnswer && userAnswer === question.answer) {
         correctAnswers++;
-        feedbackMessage = "Correct! Brilliant!"; 
+        feedbackMessage = "Correct! Nice job!" color = green; 
     } else {
-        feedbackMessage = `Wrong. The correct answer is: ${question.answer}.`; 
+        feedbackMessage = `Wrong. The correct answer is: ${question.answer}.` color = red; 
     }
 
     
