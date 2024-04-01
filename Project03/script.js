@@ -97,8 +97,10 @@ function submitAnswer() {
     let feedbackMessage;
     if (userAnswer && userAnswer === question.answer) {
         correctAnswers++;
+        totalQuestionsAnswered++;
         feedbackMessage = "Correct! Nice job!"; 
     } else {
+        totalQuestionsAnswered++;
         feedbackMessage = `Wrong. The correct answer is: ${question.answer}.`; 
     }
 
@@ -116,13 +118,11 @@ function submitAnswer() {
     }, 1000); 
 }
 function showScoreboard() {
-    const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2);
-    const totalScore = ((correctAnswers / totalQuestionsAnswered) * 100).toFixed(2);
+    const totalScore = ((correctAnswers / totalQuestionsAnswered) * 100);
     const scoreboardTemplate = Handlebars.compile(document.getElementById('scoreboard-template').innerHTML);
     document.getElementById('app_widget').innerHTML = scoreboardTemplate({
         playerName: playerName,
         questionsAnswered: totalQuestionsAnswered,
-        elapsedTime: elapsedTime,
         totalScore: totalScore
     });
 }
