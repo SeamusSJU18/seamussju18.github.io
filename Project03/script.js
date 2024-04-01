@@ -118,11 +118,11 @@ function submitAnswer() {
     }, 1000); 
 }
 function showScoreboard() {
-    const totalScore = ((correctAnswers / totalQuestionsAnswered) * 100);
+    const score = ((correctAnswers / totalQuestionsAnswered) * 100);
     const scoreboardTemplate = Handlebars.compile(document.getElementById('scoreboard-template').innerHTML);
     document.getElementById('app_widget').innerHTML = scoreboardTemplate({
         playerName: playerName,
-        questionsAnswered: totalQuestionsAnswered,
-        totalScore: totalScore
+        Correct: correctAnswers,
+        Score: score
     });
 }
