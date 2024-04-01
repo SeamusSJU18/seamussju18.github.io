@@ -94,56 +94,27 @@ function submitAnswer() {
         userAnswer = document.getElementById('narrativeAnswer').value;
     }
 
+    let feedbackMessage;
     if (userAnswer && userAnswer === question.answer) {
-        correctAnswers++; 
-    }
-
-    currentQuestionIndex++;
-
-    if (currentQuestionIndex < quizData.Quiz[currentQuizIndex].questions.length) {
-        renderQuestion();
+        correctAnswers++;
+        feedbackMessage = "Correct! Brilliant!"; 
     } else {
-        
-        showScoreboard();
+        feedbackMessage = `Wrong. The correct answer is: ${question.answer}.`; 
     }
-}
 
-async function displayFeedback(userAnswers) {
-    const quiz = quizData.Quiz[currentQuizIndex]; 
-    const feedbackTemplate = Handlebars.compile(document.getElementById('feedback-template').innerHTML);
-    let correct = 0;
-    userAnswers.forEach((answer, index) => {
-        const question = quiz.questions[index];
-        if (answer === question.answer) {
-            correct++;
+    
+    document.getElementById('app_widget').innerHTML = `<div class='feedback'>${feedbackMessage}</div>`;
+
+    
+    setTimeout(() => {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizData.Quiz[currentQuizIndex].questions.length) {
+            renderQuestion();
+        } else {
+            showScoreboard();
         }
-    });
-    correctAnswers += correct;
-    totalQuestionsAnswered += quiz.questions.length;
-    document.getElementById('app_widget').innerHTML = feedbackTemplate({ correct: correct });
-    if (correct < quiz.questions.length) {
-        const correctAnswer = quiz.questions[currentQuestionIndex].answer;
-        document.querySelector('.card-text').textContent += ` The correct answer is: ${correctAnswer}.`;
-        document.getElementById('gotItBtn').addEventListener('click', () => {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < quiz.questions.length) {
-                renderQuestion();
-            } else {
-                showScoreboard();
-            }
-        });
-    } else {
-        setTimeout(() => {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < quiz.questions.length) {
-                renderQuestion();
-            } else {
-                showScoreboard();
-            }
-        }, 1000);
-    }
+    }, 1000); 
 }
-
 function showScoreboard() {
     const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2);
     const totalScore = ((correctAnswers / totalQuestionsAnswered) * 100).toFixed(2);
