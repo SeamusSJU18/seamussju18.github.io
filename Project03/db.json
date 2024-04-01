@@ -54,7 +54,7 @@
           "num": 2,
           "type": "imageSelection",
           "question": "Which one of these images is Java syntax?",
-          "choices": ["/cppcode.png", "javaCode.png", "JavaScript_code.png", "PythonCode.png"],
+          "choices": ["/cppCode.png", "javaCode.png", "JavaScript_code.png", "PythonCode.png"],
           "answer": "javaCode.png"
         },
         {
