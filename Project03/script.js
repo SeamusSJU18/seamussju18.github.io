@@ -122,7 +122,7 @@ function showScoreboard() {
     const scoreboardTemplate = Handlebars.compile(document.getElementById('scoreboard-template').innerHTML);
     document.getElementById('app_widget').innerHTML = scoreboardTemplate({
         playerName: playerName,
-        Correct: correctAnswers,
-        Score: score
+        correctAnswers: correctAnswers,
+        score: score
     });
 }
