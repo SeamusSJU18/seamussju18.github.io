@@ -124,16 +124,18 @@ function showScoreboard() {
         playerName: playerName,
         correctAnswers: correctAnswers,
         score: score
+
+        document.querySelector('#nextBtn').addEventListener('click', function() {
+            showResult();
     });
 }
-async function result() {
-
-    let quizResult;
+function showResult() {
+    const resultTemplate = Handlebars.compile(document.querySelector('#pass-fail').innerHTML);
+    document.querySelector('#app_widget').innerHTML = enterNameTemplate();
     if (grade >= 80) {
-         quizResult = `Congratulations ${playerName}! You pass the quiz`;
+         Pass-Fail: = `Congratulations ${playerName}! You pass the quiz`;
     }
     else {
-        quizResult = `Sorry ${playerName}, you fail the quiz`
+        Pass-Fail = `Sorry ${playerName}, you fail the quiz`;
     }
-    document.querySelector('#app_widget').innerHTML = `<div class='feedback'>${quizResult}</div>`;
 }
