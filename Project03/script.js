@@ -125,8 +125,8 @@ function showScoreboard() {
         correctAnswers: correctAnswers,
         score: grade
 
-        document.querySelector('#nextBtn').addEventListener('click', function() {
-            showResult();
+    document.querySelector('#nextBtn').addEventListener('click', function() {
+        showResult();
     });
 }
 function showResult() {
