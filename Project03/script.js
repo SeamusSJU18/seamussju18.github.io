@@ -9,7 +9,7 @@ let currentQuizIndex = -1;
 let currentQuestionIndex = 0;
 let totalQuestionsAnswered = 0;
 let correctAnswers = 0;
-let startTime;
+let grade;
 let quizData;
 
 async function fetchQuizData() {
@@ -118,11 +118,22 @@ function submitAnswer() {
     }, 1000); 
 }
 function showScoreboard() {
-    const score = ((correctAnswers / totalQuestionsAnswered) * 100);
+    grade = ((correctAnswers / totalQuestionsAnswered) * 100);
     const scoreboardTemplate = Handlebars.compile(document.querySelector('#scoreboard-template').innerHTML);
     document.querySelector('#app_widget').innerHTML = scoreboardTemplate({
         playerName: playerName,
         correctAnswers: correctAnswers,
         score: score
     });
+}
+async function result() {
+
+    let quizResult;
+    if (grade >= 80) {
+         quizResult = `Congratulations ${playerName}! You pass the quiz`;
+    }
+    else {
+        quizResult = `Sorry ${playerName}, you fail the quiz`
+    }
+    document.querySelector('#app_widget').innerHTML = `<div class='feedback'>${quizResult}</div>`;
 }
