@@ -120,7 +120,7 @@ function submitAnswer() {
 function showScoreboard() {
     const score = ((correctAnswers / totalQuestionsAnswered) * 100);
     const scoreboardTemplate = Handlebars.compile(document.querySelector('#scoreboard-template').innerHTML);
-    document.querySelctor('#app_widget').innerHTML = scoreboardTemplate({
+    document.querySelector('#app_widget').innerHTML = scoreboardTemplate({
         playerName: playerName,
         correctAnswers: correctAnswers,
         score: score
