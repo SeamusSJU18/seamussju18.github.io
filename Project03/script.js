@@ -143,3 +143,4 @@ function showResult() {
     document.querySelector('#app_widget').innerHTML = resultTemplate({
         passfail: result
     });
+}
