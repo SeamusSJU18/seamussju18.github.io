@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: white;
+        }
+
+        .banner {
+            background-color: red;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        .menu-icon {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            cursor: pointer;
+        }
+
+        .menu-icon .line {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .account-info {
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column; /* Stack buttons vertically */
+            align-items: center; /* Center buttons horizontally */
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px; /* Add margin between buttons */
+            width: 100%; /* Make buttons fill container width */
+            max-width: 200px; /* Limit maximum width */
+        }
+
+        button:hover {
+            background-color: darkred;
+        }
+
+        .horizontal-bar {
+            height: 5px;
+            background-color: red;
+            margin-bottom: 20px;
+        }
+
+        .student-home {
+            text-align: center; /* Center form */
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center form elements */
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <div class="menu-icon" onclick="goToMenuPage()">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+        <div class="horizontal-bar"></div>
+        <h1>Login</h1>
+    </div>
+
+    <div class="container">
+        <h2>Account Information</h2>
+        <div class="account-info">
+            <p><strong>Name:</strong> John Doe</p>
+            <p><strong>Admin ID:</strong> 123456</p>
+        </div>
+        <div class="button-container">
+            <button onclick="goToLiveMap()">Live Map</button>
+            <button onclick="goToAllScooters()">All Scooters</button>
+            <button onclick="goToRevenue()">Revenue</button>
+            <button onclick="logOut()">Log Out</button>
+        </div>
+    </div>
+
+    <script>
+        function goToMenuPage() {
+            window.location.href = "http://127.0.0.1:5500/AdminHomePage.html";
+        }
+
+        function goToLiveMap() {
+            window.location.href = "http://127.0.0.1:5500/AdminHomePage.html";
+        }
+
+        function goToAllScooters() {
+            window.location.href = "http://127.0.0.1:5500/AdminScootersHistory.html";
+        }
+
+        function goToRevenue() {
+            window.location.href = "http://127.0.0.1:5500/AdminRevenue.html";
+        }
+    </script>
+</body>
+</html>
