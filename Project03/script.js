@@ -96,21 +96,25 @@ function submitAnswer() {
 
     let feedbackMessage; 
     let bgcolor;
+    let co;
     if (userAnswer && userAnswer === question.answer) {
         correctAnswers++;
         totalQuestionsAnswered++;
         feedbackMessage = "Correct! Nice job!";
         bgcolor = 'green';
+        co = 'white';
     } else {
         totalQuestionsAnswered++;
         feedbackMessage = `Wrong. The correct answer is: ${question.answer}.`;
         bgcolor = 'red';
+        co = 'white';
     }
 
     const feedbackTemplate = Handlebars.compile(document.querySelector('#feedback').innerHTML);
     document.querySelector('#app_widget').innerHTML = feedbackTemplate({
         feedback: feedbackMessage,
-        bgcolor: bgcolor
+        bgcolor: bgcolor,
+        co: co
     });
 
     setTimeout(() => {
