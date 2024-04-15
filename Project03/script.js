@@ -94,22 +94,24 @@ function submitAnswer() {
         userAnswer = document.querySelector('#narrativeAnswer').value;
     }
 
-    let feedbackMessage;
+    let feedbackMessage, 
+    let bgcolor;
     if (userAnswer && userAnswer === question.answer) {
         correctAnswers++;
         totalQuestionsAnswered++;
         feedbackMessage = "Correct! Nice job!";
-        background-color: 'green'
+        bgcolor = 'green';
     } else {
         totalQuestionsAnswered++;
         feedbackMessage = `Wrong. The correct answer is: ${question.answer}.`;
-        background-color: 'red'
+        bgcolor = 'red';
     }
 
-    const feedbackTemplate = Handlebars.compile(document.querySelector('#feedback').innerHTML);
+    // Compile and use the feedback template with correct properties
+    const feedbackTemplate = Handlebars.compile(document.querySelector('#feedback-template').innerHTML);
     document.querySelector('#app_widget').innerHTML = feedbackTemplate({
         feedback: feedbackMessage,
-        background-color: bgcolor
+        bgcolor: bgcolor
     });
 
     setTimeout(() => {
