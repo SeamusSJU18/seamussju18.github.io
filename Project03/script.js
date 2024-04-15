@@ -99,11 +99,11 @@ function submitAnswer() {
         correctAnswers++;
         totalQuestionsAnswered++;
         feedbackMessage = "Correct! Nice job!";
-        background-color: 'green';
+        background-color: 'green'
     } else {
         totalQuestionsAnswered++;
         feedbackMessage = `Wrong. The correct answer is: ${question.answer}.`;
-        background-color: 'red';
+        background-color: 'red'
     }
 
     const feedbackTemplate = Handlebars.compile(document.querySelector('#feedback').innerHTML);
