@@ -108,7 +108,7 @@ function submitAnswer() {
     }
 
     // Compile and use the feedback template with correct properties
-    const feedbackTemplate = Handlebars.compile(document.querySelector('#feedback-template').innerHTML);
+    const feedbackTemplate = Handlebars.compile(document.querySelector('#feedback').innerHTML);
     document.querySelector('#app_widget').innerHTML = feedbackTemplate({
         feedback: feedbackMessage,
         bgcolor: bgcolor
