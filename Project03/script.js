@@ -98,16 +98,20 @@ function submitAnswer() {
     if (userAnswer && userAnswer === question.answer) {
         correctAnswers++;
         totalQuestionsAnswered++;
-        feedbackMessage = "Correct! Nice job!"; 
+        feedbackMessage = "Correct! Nice job!";
+        background-color: 'green';
     } else {
         totalQuestionsAnswered++;
-        feedbackMessage = `Wrong. The correct answer is: ${question.answer}.`; 
+        feedbackMessage = `Wrong. The correct answer is: ${question.answer}.`;
+        background-color: 'red';
     }
 
-    
-    document.querySelector('#app_widget').innerHTML = `<div class='feedback'>${feedbackMessage}</div>`;
+    const feedbackTemplate = Handlebars.compile(document.querySelector('#feedback').innerHTML);
+    document.querySelector('#app_widget').innerHTML = feedbackTemplate({
+        feedback: feedbackMessage,
+        background-color: bgcolor
+    });
 
-    
     setTimeout(() => {
         currentQuestionIndex++;
         if (currentQuestionIndex < quizData.Quiz[currentQuizIndex].questions.length) {
@@ -115,7 +119,7 @@ function submitAnswer() {
         } else {
             showScoreboard();
         }
-    }, 1000); 
+    }, 1000);
 }
 function showScoreboard() {
     grade = ((correctAnswers / totalQuestionsAnswered) * 100);
