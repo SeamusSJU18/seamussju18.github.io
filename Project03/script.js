@@ -94,7 +94,7 @@ function submitAnswer() {
         userAnswer = document.querySelector('#narrativeAnswer').value;
     }
 
-    let feedbackMessage, 
+    let feedbackMessage; 
     let bgcolor;
     if (userAnswer && userAnswer === question.answer) {
         correctAnswers++;
